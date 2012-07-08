@@ -201,6 +201,37 @@ FlowReturn Pad::chain(const Glib::RefPtr<Gst::Buffer>& buffer)
   return FlowReturn(gst_pad_chain(gobj(), buffer->gobj()));
 }
 
+GstFlowReturn Pad_Chain_gstreamermm_callback(GstPad* pad, GstBuffer *buffer)
+{
+  //FIXME: It's made like vfunc wrappers, but why there is no reffing of pad?
+  Gst::Pad *pad_wrapper = dynamic_cast<Gst::Pad*>
+    (static_cast<Glib::ObjectBase*>(
+      Glib::ObjectBase::_get_current_wrapper((GObject*)pad)
+      )
+    );
+  g_assert(pad);
+
+  try
+  {
+    return static_cast<GstFlowReturn>(
+      pad_wrapper->slot_chain(Glib::wrap(pad, true),	//take copy
+                              wrap(buffer, false)	//manage object
+                           ));
+  }
+  catch(...)
+  {
+    Glib::exception_handlers_invoke();
+  }
+
+  return GST_FLOW_ERROR;
+}
+
+void Pad::set_chain_function(const SlotChain& slot)
+{
+  slot_chain = slot;
+  gst_pad_set_chain_function(GST_PAD(gobj()), &Pad_Chain_gstreamermm_callback);
+}
+
 bool Pad::set_blocked_async(const SlotBlock& slot, bool blocked)
 {
   SlotBlock* slot_copy = new SlotBlock(slot);
@@ -227,5 +258,7 @@ gulong Pad::add_event_probe(const SlotData& slot)
 
   return gst_pad_add_event_probe_full(gobj(), G_CALLBACK (Pad_Data_gstreamermm_callback), slot_copy, &Pad_Data_gstreamermm_callback_disconnect);
 }
+
+
 
 } //namespace Gst
