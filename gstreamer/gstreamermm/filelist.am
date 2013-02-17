@@ -15,6 +15,7 @@ files_extra_h  =                \
         gst_wrap_init.h         \
         handle_error.h          \
         miniobject.h            \
+        register.h				\
         version.h               \
         wrap.h                  \
         wrap_init.h
