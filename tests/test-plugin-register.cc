@@ -37,17 +37,6 @@ class Foo: public Gst::Element
 	Glib::RefPtr<Gst::Pad> sinkpad;
 	Glib::RefPtr<Gst::Pad> srcpad;
 
-	static Glib::RefPtr<Gst::PadTemplate> sink_factory()
-	{
-		static Glib::RefPtr<Gst::PadTemplate> res = Gst::PadTemplate::create("sink", Gst::PAD_SINK, Gst::PAD_ALWAYS, Gst::Caps::create_any());
-		return res;
-	}
-	static Glib::RefPtr<Gst::PadTemplate> src_factory()
-	{
-		static Glib::RefPtr<Gst::PadTemplate> res = Gst::PadTemplate::create("src", Gst::PAD_SRC, Gst::PAD_ALWAYS, Gst::Caps::create_any());
-		return res;
-	}
-
 public:
 	static void base_init(BaseClassType *klass)
 	{
@@ -61,8 +50,8 @@ public:
 				"foo_detail_author");
 
 
-		gst_element_class_add_pad_template(klass, sink_factory()->gobj());
-		gst_element_class_add_pad_template(klass, src_factory()->gobj());
+		gst_element_class_add_pad_template(klass, Gst::PadTemplate::create("sink", Gst::PAD_SINK, Gst::PAD_ALWAYS, Gst::Caps::create_any())->gobj());
+		gst_element_class_add_pad_template(klass, Gst::PadTemplate::create("src", Gst::PAD_SRC, Gst::PAD_ALWAYS, Gst::Caps::create_any())->gobj());
 	}
 
 	Gst::FlowReturn chain(const Glib::RefPtr<Gst::Pad> &pad, Glib::RefPtr<Gst::Buffer> &buf)
@@ -77,8 +66,8 @@ public:
 	  explicit Foo(GstElement *gobj) :
 			  Gst::Element(gobj)
 	  {
-			add_pad(sinkpad=Gst::Pad::create(sink_factory(), "sink"));
-			add_pad(srcpad=Gst::Pad::create(src_factory(), "src"));
+			add_pad(sinkpad=Gst::Pad::create(get_pad_template("sink"), "sink"));
+			add_pad(srcpad=Gst::Pad::create(get_pad_template("src"), "src"));
 			sinkpad->set_chain_function(sigc::mem_fun(*this, &Foo::chain));
 	  }
 	  ~Foo()

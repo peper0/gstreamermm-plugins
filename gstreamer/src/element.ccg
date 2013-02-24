@@ -231,4 +231,11 @@ Glib::ArrayHandle<QueryType> Gst::Element::get_query_types_vfunc() const
   return RType(0, 0, Glib::OWNERSHIP_NONE);
 }
 
+Glib::RefPtr<Gst::PadTemplate> Gst::Element::get_pad_template(const Glib::ustring &factory_name) const
+{
+  return Glib::wrap(gst_element_class_get_pad_template(GST_ELEMENT_GET_CLASS(gobject_), factory_name.c_str()), true);
+}
+
+
+
 } //namespace Gst
