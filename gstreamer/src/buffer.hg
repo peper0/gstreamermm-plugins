@@ -103,17 +103,20 @@ public:
    * unknown.
    */
   _MEMBER_GET(timestamp, timestamp, ClockTime, GstClockTime)
+  _MEMBER_SET(timestamp, timestamp, ClockTime, GstClockTime)
 
   /** Get duration of this buffer.
    * @return he duration in nanoseconds (as a Gst::ClockTime) of the data in
    * the buffer. Value will be Gst::CLOCK_TIME_NONE if the duration is unknown.
    */
   _MEMBER_GET(duration, duration, ClockTime, GstClockTime)
+  _MEMBER_SET(duration, duration, ClockTime, GstClockTime)
 
   /** Get the offset of this buffer.
    * @return The offset in the source file of the beginning of this buffer.
    */
   _MEMBER_GET(offset, offset, guint64, guint64)
+  _MEMBER_SET(offset, offset, guint64, guint64)
 
   /** Get the offset end of this buffer.
    * @return The offset in the source file of the end of this buffer.
@@ -126,6 +129,16 @@ public:
    * lifecycle (i.e. when its refcount becomes zero).
    */
   _MEMBER_GET(malloc_data, malloc_data, guint8*, guint8*)
+  
+    /** Get the free_func of this buffer.
+   * @return  A pointer to a function that will be called on the buffer's
+   * malloc_data when this buffer is finalized. Defaults to g_free().
+   * Note that the free function only affects the buffer's malloc_data; if the 
+   * buffer's malloc_data is NULL, the function will not be called. 
+   */
+  _MEMBER_GET(free_func, free_func, GFreeFunc, GFreeFunc)
+  _MEMBER_SET(free_func, free_func, GFreeFunc, GFreeFunc)
+  
 
   //gst_buffer_stamp is depricated so ignore it.
   _IGNORE(gst_buffer_stamp)
