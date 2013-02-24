@@ -49,7 +49,8 @@ Glib::RefPtr<Gst::Buffer> Buffer::copy() const
 
 Glib::RefPtr<Gst::Buffer> Buffer::create_writable()
 {
-  return Gst::wrap(gst_buffer_make_writable(gobj()));
+  return Gst::wrap(gst_buffer_make_writable(gobj()), true);
+  //notice, we made new reference for returning RefPtr, the old ptr should be destroyed then
 }
 
 Gst::MiniObject* Buffer_Class::wrap_new(GstMiniObject* object)
