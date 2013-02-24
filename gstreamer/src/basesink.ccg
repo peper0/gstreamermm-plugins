@@ -73,7 +73,7 @@ GstFlowReturn BaseSink_Class::buffer_alloc_vfunc_callback(GstBaseSink* self, gui
         const GstFlowReturn result =
           static_cast<GstFlowReturn>(obj->buffer_alloc_vfunc(offset, size,
           Glib::wrap(caps, true), cpp_buffer));
-        *buf = cpp_buffer->gobj_copy();
+        *buf = cpp_buffer ? cpp_buffer->gobj_copy() : 0;
         return result;
       }
       catch(...)
