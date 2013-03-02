@@ -102,6 +102,8 @@ adder|adder|Adder \
 alsamixer|alsamixer|AlsaMixer \
 alsasink|alsasink|AlsaSink \
 alsasrc|alsasrc|AlsaSrc \
+appsrc|appsrc|AppSrc \
+appsink|appsink|AppSink \
 audioconvert|audioconvert|AudioConvert \
 audiorate|audiorate|AudioRate \
 audioresample|audioresample|AudioResample \

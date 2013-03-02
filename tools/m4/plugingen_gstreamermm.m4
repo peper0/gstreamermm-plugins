@@ -25,6 +25,7 @@ _TRANSLATION(`GstElementFactory*',`Gst::ElementFactory',`const Glib::RefPtr<Gst:
 _TRANSLATION(`GstFraction',`Gst::Fraction',`const Gst::Fraction&',`Gst::Fraction',`<gstreamermm/value.h>')
 _TRANSLATION(`GstPad*',`Gst::Pad',`const Glib::RefPtr<Gst::Pad>&',`Glib::RefPtr<Gst::Pad>',`<gstreamermm/pad.h>')
 _TRANSLATION(`GstTagList*',`Gst::TagList',`const Gst::TagList&',`Gst::TagList',`<gstreamermm/taglist.h>')
+_TRANSLATION(`GstBufferList*',`Gst::BufferList',`const Glib::RefPtr<Gst::BufferList>&',`Glib::RefPtr<Gst::BufferList>',`<gstreamermm/bufferlist.h>')
 
 dnl Interfaces
 _TRANSLATION(`GstColorBalance*',`Gst::ColorBalance',`const Glib::RefPtr<Gst::ColorBalance>&',`Glib::RefPtr<Gst::ColorBalance>',`<gstreamermm/colorbalance.h>')
