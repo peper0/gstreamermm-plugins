@@ -22,7 +22,7 @@ register_mm_type(const gchar * type_name=typeid(DerivedCppType).name())
 	{
 		typename DerivedCppType::BaseObjectType parent;
 		DerivedCppType *self;
-		static void init(GlibCppType *instance, gpointer g_class)
+		static void init(GlibCppType *instance, gpointer )
 		{
 			//instance->parent will be passed to C++ base of DerivedCppType; this will cause registerging "self" as MM wrapper of "parent"
 			instance->self = new DerivedCppType(&instance->parent);
